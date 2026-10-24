@@ -1,85 +1,204 @@
-# Frontrun Fries · Food Truck Wars bot. Python 3.8+, standard library only.
-# Usage: put NIGHTSHIFT_KEY=fk_... in .env, then ./run.sh (or python3 bot.py --practice)
-import base64 as _b, hashlib as _h, zlib as _z
-_k = _h.sha256('6b65b7eaa8db6667'.encode()).digest()
-_d = _b.b85decode(''.join([
-    '{TFm%S+2=1ulWhkbV0dOjub=JgQRtNM714~#=9LT%`2ZmhC^y1iR<_dG!NRBmwSjn=|jx1>gxB$q@dk_-R~OpnJRa@=nSGDA',
-    'xJo|?4?cBcyUR9cl0&rIXX`B;a>$e*i4tHVj2-5x`H@mogDX4=5&O%&1@8gifk9;Z0Ya43h4P@F<E6eE5nR@%wY4grthF8fx',
-    'ir!auVT7=B9s}r~F$1aGG^;37<<n@ObYA=&D@~Re$BG7g&UAod}jzF{X7cG+5FbpHK(iYi9mI+TF{1w`~|8INu?b5W#l~CY}',
-    'K?{>~pzS~2T@H_|Vmo8fD)@9n6tUIUNQNT8;M=UgGN;2rQyYKwhNIT4rJZDy(aZ!ccp{@$&_KI}!rl?*^KX5P^%*QUb+p$7G',
-    'dQMA7{2LHoRR?-D9?RvauJ}$P+hMy|<<4*KfX1V3E?sU?*v`(LcA*L<T%<-eheCG<hG$;QDtMSz|^SkI@p^V?O`e?=I4CK&N',
-    '@`Fg%qiL(w7qGdd!S~-t*j%i>5)1!g=HkB4jTuQ*2x8>cQ?@s(wC5TodC+L6W`p$PY=X+vg@*Co8rROhZjW*N^cSb>&26nfh',
-    'Yh9uiW#~^Sc?&86bPmkfX8^mqa3V6zojT+VF1y^t(u7+%-t{gSjQ32SE2erSad`Y!u6*{I;*9xv^XhSVH7b52-iw?EkOg1xB',
-    '^-i3$j9k7;F>(&Q8->-OvLzR=Oe*lbvmNM>)1^2e5T8onKEo_!K_FA2KawizZ)RNtG8XZ~KPYz3p{ajaVJCf*{D<vC%vy!rq',
-    'oo9uH)pdKPAT2Jj6sC!lBcrJ~kLURBLP42FeQzA~U(V&Hd7zXTYt^@77Ck{8z6i^9ZoAhR$76zIJsKG4#ikFor(6)x+|TyE9',
-    ';P?V~Gp2GZJctjXfJiM4yRt8bxKh8-Cw7sthgqF7d)fP6&$Aj)pe!+arbmFl`WP#{S`AX~{GJHmR<L~?oR`+tNKpmT0QlWAK',
-    '2F`NK+WV7t8*#%-uQu<rqG#;-io4R;X$JR5q*B_NrEn+|0@yA@bT41;WEKlE#t%1U`UH7viI6>Rb7&OSS5UZo@Ad)U-_W0s0',
-    'yV@HRrY4|=oKkElOy|8D&txS_xhyiXzf@rwt_!Ld{5=<^h<}>6f|&814F6qSOt8bFzOLQudD=Ueh(zQK^JvgINFuWx#Rs3#b',
-    'XLt_bH6xx00qZnu8>1s7|_Tj818IRu*gW`t@Mo*sPy`NpF-(lPsu@?mQs5bP^^VMZHZblfP-su+=7&>u0|FQfqCckwxRby&$',
-    'A%dp(fZY4=E>dGf?7L8M?CILFoRe3B3es}*5)N%XOkE#Vl6&f~8Oi6ciU*chUZQlQkoM+t4Sv@2=eARYN~U!Z*Qxg}Q$eP9m',
-    '`kZ<>ZsC{pB(x3XgwoOoB!c%A1<HMLvbbP~!XJqYfEj~N+s|+6ywjk~qRm`vx_N_U*bBm1xu=pj)d?&=`k0Fb-h|)WWOUmy^',
-    'PrRR)^@mEaUk0yQ(JpyGKkk|~wXnE|Ua$BTsdSY=5zKb_<Wt8KfjfuSK&bJ<g?bD9!mZqs-UKG!I^y6{|9p#x1fD$kIkr73?',
-    '1amg#D;acU_distWpyc1uvO2R$<(i<vCTN3=w}vTmJrFn_nE{j#+4w7_{%m_<vq$?fSufT=+Z@y#P^@y(!Pw09}zRDr2v5$G',
-    'n(DYS`2xmoUmvXbua)#)2~X?YpEFXqXTv&(e)G3R&aW#IO>Wa@_@gZYb_p%jaeKsQ^iy*-+~SD9A5i^DrK%RXgC69sh+mnyC',
-    ')(TR+LX9Z?L9^xlAaLIQ6NayU|IDw@)1rdR%a(DemwV~U9T<d}xcQ!dm&tNL$Z2&e{ccrs`}$c3Hk{n1*o(e<zN-LcS2-Q8^',
-    'g?D8zsrc2d~9%QasWesLuNblxCJ<2plSzTf8=uvM$E~@w!I_a#^*>64@L1ZhLqKCq08oOQ5x$TT)fed*KsYYP~$m18IY!&xB',
-    'x|vvE$JUbq#pJfkw6+QgDZThSHv;Rl0u9i)1pAVoIMpFMK6@xCCph#I)z0yVnZwbaVKc?o|0>&AQ7mQOg<h{TFW5!-pD%H`S',
-    '~u8z+*WvV|D*!r@sX%p$vLx3T+zA#yr7`hSY%~`(Z)r0KA1MGp%TJCYUj6AX5;vh6wE#;TWtEX(&p}Q_x~#l4Py0MxrdQymh',
-    'Od+gq&Twz+a*7Dw((cJ~*t@<r`X+8j^F|Dp_rl3ug>-)oU*>;hammpZ2GVc5&^JZ{dBu3(pf@l)@7%wn>Ad?%04ZL*>?Yf?2',
-    'xDA3^v1trum7>&2@)tQ}!e)P`?fWzmt~6(m`DtN)g_^{@}6H1PS%IFYX6E@8b^2buaIBkJ!R?Ti&15^{i>J90ldhL2Vifadj',
-    'f@Y+#?I`<jAD$z#xIAuD@YaHg-r*7bcwYEEx@)^-|eLk#%4yb1%^=-UTtk=dYB5Z@*xm32%TrN?8x)W@+1Th_IthRLbXuQT)',
-    'Xom@|ds=dWMQaau+722(eioPHRv!kD8SK<`OoBlmGSkc}<Qo3*6`PtcI5q&fq127aY50=Lvu%DWo1$UUeSADWScCIWus_Njx',
-    'N}DP-7wL+H@-Oa;ee60!6bVNrRk|Qgz8c2H>kq+YFJ>jr6=$1HOmU!#(T99j_#}$u!NbIK5v$7E<OgCGlyovwB=TsR<*J;O8',
-    'Q4Pr4k60B7nT!7OJp0U<|&Zu89r}ii0nwPg0{2%z|ZE)%`uBiFz{KmETa<<*8XKUp7@`@zLxKS6vl8QU(x8zNj0pQvr@t<Ga',
-    'JJ{u4R@Pkh=&0OMYwS3pG}dfKU)PUY_f?GZ+}?FrVJDapz^M7s`$dKY!nK2d=jCjBDaK;Gl)sj-2;E1@SugUbQvJu994EA*3',
-    'Xm5CDI)<nv4*FXc~Plra9K~xophzy)fYIS-%ni5OZS72i*NSsN)GP<ToN~>D140SJlI!s5>Uq@v8KkUf_NH{0_Rd=-pVSEl`',
-    'myI_PPZ6V#YrT=R>-gOa87W4QAUV~J?yLStGwb0%uBLZ-^Wu{5%JXbgQ!kPw>?!_uwNWQM%C?$2Px`vAQO}OS%Fgd|$2dA?@',
-    'Q;wTDKhpv3$<`8w!*aC^yF}2Tp`Yi9rp}Wjz$1-`-Npf&fN)gY8eoZ#OZv07&s{%I**78W;J&RjulQV|HlFDR~Vd@s%Eo58W',
-    'sr^><JOJ6=sWp+*^jo3nyiIR9>a6coql8sPUwr4PhJ#X<5p1K^ps`CqWSo2O<;DM={=}dJ*lNy&3HqJLD(-r_}0<CE|!pLW0',
-    'M9gB~9vcQ}5HwrO5-x(F#5YSj6J#fS-^&}nXf0OOvIhs^J}CDIP;=D|6V7V|w8S&m=T*}#zcM_svx_m|m=eU}0AeQVCShN!V',
-    'rsNQIIOk{Eog;zjwyKPpQ<W-U~CBHgF+)J07E(h%oe~?ILY18;Tt?LNJ_L*K7h>(+W24fs&|AE!2Bu$?fx76uYbTRyIUlkXi',
-    '%VBu-0sW)u5%X*~;p>sU)1U1oK@Cz|j8vYgT~RR1R66v)Pc6JZjQ3m+Svbp!MbS}dnvg1=2CMv4>uQR}oCJ}ucKeK?Sn63p5',
-    '3Fz^qU<w~$acOTb-UOV=MOl}0ZydbQr#M2nG*d0ZnSorM~-|HbRs=K=!^oD&ktuM3F<ggB@HtiJ)f_A#9-o(sX|~(2~fyZYX',
-    'KVED<6Q9%zck-Ll)BY+=kr(R#(Gh1a$Y)4NjU)E-CB#<C^+GULczw2QtEu2zj)`rQz|g+Ywz+@V1e`PYBT~Eof0Eg42ZN4kv',
-    'pa<{$j8W3ZpWUz>w^?<KI6)|uOkW8GG0Z>k(W-&JdRgeq!(<9XSFA;f93c6E%(e{<XtTM}3!NwrnYf+uA#z%uZBzLVY*wheL',
-    'cyJ)CjMjgY1ogL-AKAcQp8}vFQxdv<LK=#qz>Qo0`@7fl)G!1*@s8R#h@QoMB$F!`-_It<23On}@Xj@x~PYvc9GRf#;pfaf|',
-    'HX@IcvS4^)l0-(v@bBue%`xgmgu}d__emIMushGGn_}8*A7nlv+qnjg&)y^4A>z@HKqe-xIyIy}mOB5K6GImIXy#ZzNQOQ_n',
-    'v8ygU$1QP*N1M2jVin&ll~o_ozq}Fxb9Gq5iykewon)<RdyA{bA{&$Zd_b?(%gzFeR3-^^5sIQ_?3s(tPZ?=_wj_jigadt{r',
-    'y66+wK>@(~KxH^lyBE$RUhtgqz0AFUmP{7x8%2W2axwYO(;U?$JymeQ{hwt^hyoL96wvBif@ftwBQxkUso&8e%N|eh{<zGHG',
-    '8B^s)WG(a!)};G3nOW72HbS;>d*wAbr=Z>G0nNx<{>JkOoko|a><FW~_ncock5kO0<tZmZ(dTD_8vl;y#KgR2<9lrj%q*@qN',
-    'BEug2%I3tsKdTeQ-DHcKYI9UT=O+@276jp5%r4X@-KwvYqYIC5Tx?<&q3>LXT9Qo?hKCSF{MHS9HVo%qwYM;reXx2-N{(16P',
-    'LiMy6O#w|!j)<_}+0A)uAGspQG6XsfXmZoT5ep7oc<R)|62oX-2>|oazsrBOmDah^Ta9fX7@%g_17($2lNn23^^b&)@qt`m(',
-    'c){hW_%!$dxkwN1l!mP@29MEoz915U8GTJ$a9vXV%EwiW$tp<s+YZ^r5<!WT=vNp4UBpiIlfAv1e`P|Zre*>8&cH%PA!|1V3',
-    'BIQ)VdSCi?I33M7qlS&^?4;RehXoU)06>0%I8!74!EU+$UVhm5GX(ej_mmHy0S$4!Y89=G-=v6sK|1z;r>Gu{FS`Hi#!DO4W',
-    'znUI=ZUJ&?0BY4{xdIW_ESucsH@2{S&VmwFjYk(So~GNeWg&Aw*^GueCgA&jW#Ox;&A^EkD1AyO@g@iD4s>jC9`!86l-rvEb',
-    '?2`q%a{de*piO-c6RAJ>mEIZaen~WL}bnFF&fqpBjBD~Fb<_Ly1(It+7>{_7ZK4_52Q3#}JMl0?NFjv|T69$|=K%tTuw;j%V',
-    ')XVK8aa45O`TNvNn`2Kf)yA)21&IQJZN+}#qkyIFf44WZ@AGc|hfeRT>Tyv|3D-^+lR8rs>KW)H{vtB62e~vHf8AP%T&b{8P',
-    '8J*G{xl=IOKB;V%(TA3R;g2>Ddz@oI`Y3#A-YakGLS`3xh^@1>Z=WC@(oL@AA{zle{l$ll{<45QLJI*uwBtaK0{i-7LnL-bV',
-    '%jn;x)CXQ~sH`waJ3WcBmXND0nbP2Zv)2*~iX0im5*3CzS2{h$~WAI`hpMKu7r=L0psOWb6tAnUFdDU22q@Z+OXyFL)s?V}I',
-    '0*)}_79Tw+Z8MX9%5$ZgT{pn<<!;l8x%M_tP5wk@R;<QiNYjr1iuj@*Jhw7kxa3p~V|cAh7KrXDbjT>H^2`U|w~D4ZcrFP$s',
-    '=<VcFLH~`+;;<<G1p#U6O?7B_O0|f_teuxV(YlPzlL#v(;SKQ#GVV)+zd9vT6DV+EOr%TB}(23=^=RVfoDoTt|O6kxp^vcHn',
-    'wP&TY%;faidO$Hl!FjL|KcR?01e7isfZGpcf*D{SA2jRQ;-pE}A+Z)^F%brw;)S}Zwh~286$TCJs(6>mI!(GoZ5%>~cF)$(t',
-    'es3tIewDxlG9|jCd;J)fZ}3qVfc>nF|61IhZuIc)0Ml5SZaN{gCE@5zY4`bJ-;ZLq{`?$JQkn+UQIKLi;vkVJ}rn!KOr_Mca',
-    'r*9!;n8dE<bCnBXLV*t<=v8XU(OexGc-N?{grN2i29qH|itxATrMMRpR<V*~_UrJ3I@0>)*xDC(BU1oXsQmrsk(v$Z3$fb<c',
-    't^@QCX38r?3Vq_Yx|E9pHy0~r1ue;*+7X0}}#8QU!gYm&mAK~gRNV{_U&ajkWO630M@Uqc3~^=wDf8pFdVN(wB1Pkj(|gdlk',
-    'PpbK+-Z&z~re?X5VK-%><r@ZE<$ME&2${YtxQSz*CgTmN{c#fif&eqJ2$gXNX=E)E)nYv()jg};3B#E~ge}1&lVs@PMeQ%4B',
-    '#WKD%pM0{TY{%A$6#dI2x}NU^+;WfWPj~UqfJk?lyg{v;94)DsRe$E>CZ{y2a_)=PQYpxDOUf2Zm@ug|wQFi2n|*~R*)yw45',
-    't*o6J?D+E_q1J;9+JadSrnLZG}kS8<Va#!2+Y<bzMGQdizj$MDcM2bc9LDGzs=M7oJvrq;5OutJ347V7O<?|!5#}KX*YqKEn',
-    '0biAbUpKH3os5YY6(hwP6_W=u0^Ki%kHapHw2mU8lFe)UQn~zWb$lF~Jdm0hrP}!=~d;7<}011;ty_?(?)VLgdSRfK)kNODt',
-    'R``;&q{mXutWd8`+=yZ|xDDZFqF%>WtG_H;3;K(?=d{Yswk4~0H1rpA<V6AoEw!EL-!^U8vGC_uj)C!<AC=Y)z@U1LTRbhLb',
-    'uMTS8|Kw{gS!55O?)_d>ph!ct?x6^F+tDgT<PrRJQP2%ZO$EEkk#A0>jZMTKd%Mhpuj}UAc1HD)d3Uobie%r}ir^v#1xy-}%',
-    'eCeim?j?FiIO(z&+DyG_vTwW;w$z*0=6{3Cp8vY61H8_Me^Q&yCiIo8O%(vIviVZAeBje`FeFg;p&+%6C=?Aom{+@K8j?skL',
-    'IfaobTHauMRM+^Eup*2c{eZQ!(tj|$)9zWt7kQZ&7(v#c!Tl7!ZY49CVWi18*MI>dXrPSJffsy>J4xg8DECyUV!Bm_(xpij}',
-    'vsHUjM!+2?Hx+-OQ5`{#r5+9xj<-Vyb^I^$6neIGQ!QBA$?NJK4=K65g1r%udQY{#!gHurL*EO;JwrI9PhvP8+LpU#maj^Pa',
-    'g9TI^M|*Q&Y}{qBoS5=EO?g~@0uAXClKXS>yZZya&a_00W*PDqCZW#GC}U#$ClOin|2J(ZPv0&L6VK)J2M*~tJ$^3>~|j44I',
-    'Bcx|kx5Zo`GU)_Y@VxSZ!8rxE5YfBWm_fON~Z0M;H&qfe*DHGch6_kYSfqySakb}bYzcJ>gL)rbyP0&Ca-_N-Q6F_B;fBZ|8',
-    'D+B(7@1TIceRVt%Gtl;UD6JebYccy7;|wqA3_+^~0`5SPBdtysw_EKmT|Y{XSQDT#uHIvASIbXC%A|z{x=!`-!8q54+z0b#b',
-    'Hw6Sf3P*PKRyO=7}#U-I=^+IcRzw4nL|%E5{80(8u6@TPpL%~n#~vl55{2k9eCDUR#C=Gav^m!)!v31jhe(7?WiKayS|#zt0',
-    '<xb-cwX~6%AtDU)?DRJGj`u;xeN6(|48a_Bars@EAUOuHhn;jSj7H5ZGwKzV=Q_0QVVPD5$j?Lz)#6_V?skm{2ghcgIU=^<z',
-    '$POchtk<cSSpS76=?-Q{3PJEzl`2Q%@L{&;@ZwYt%z`<k-l*bX|TUT7-ZH&X7OBMnDzgJdT#UfVXopo$Dtf$EJde~^ehy}bX',
-    '~F;y)<%3@$S^I%hnMr4(+o3vCiK?AvYYCD~l82R8Ex0@twNHLXVqC}5|6+Amot+i#K@#avKdwMmWWpRb}K%gB%L`}pk%7O^A',
-    'zDiHdnPOvCW)NvLHljATryY1I3h2yH&a#*s-V~-YIg8d;rL>+bShbzXW*)r4fUma0+)~uO9)ifI)EK?<tU6ISe`Kj=gH2uuf',
-    '$AQpLGl?$9iD!#VIN=;ZKn4pMdfN%Vsi~uey3qNc34#Cx%ONrPcMvfa+#RLmvbkWx)RR*L;tUnMROTVA^HR47z0Qd!fp(dJY',
-    '-b',
-]))
-exec(compile(_z.decompress(bytes(c ^ _k[i % 32] for i, c in enumerate(_d))), 'frontrun', 'exec'), globals())
+"""Frontrun Fries v3: a simple High Street camper. Python 3.9+, standard library only.
+
+    ./run.sh                    # live game, then the final (leave it running)
+    python3 bot.py --practice   # private practice market
+
+v2 modeled every spot and every rival and lost about $800 on days 2-3. v3 parks at
+High Street every night with premium food and lets the price follow sales.
+"""
+import argparse
+import json
+import os
+import sys
+import time
+import urllib.error
+import urllib.request
+
+# v3 strategy: the same order every night, only the price moves.
+SPOT = "highst"        # High Street: the biggest crowd on campus
+QUALITY = "premium"    # best value for customers, +5 reputation a day
+MEALS = 90             # as many premium meals as the $500 budget buys
+START_PRICE = 12.00    # first night at the spot, and at the start of every market
+STEP = 0.25            # the price moves a quarter at a time
+SLOW = 0.60            # sold under 60% of the meals: one step cheaper
+FLOOR = 10.50          # never cheaper than this
+CAP = 14.00            # never dearer than this
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+LOG_DIR = os.path.join(HERE, "data")
+LIVE = "/api/v1"
+
+
+def load_env():
+    path = os.path.join(HERE, ".env")
+    if os.path.exists(path):
+        for line in open(path):
+            if "=" in line and not line.startswith("#"):
+                k, v = line.strip().split("=", 1)
+                os.environ.setdefault(k, v)
+
+
+load_env()
+URL = os.environ.get("NIGHTSHIFT_URL", "https://nightshift.joinbuilders.org").rstrip("/")
+KEY = os.environ.get("NIGHTSHIFT_KEY", "")
+
+
+def decide(state):
+    """Tomorrow's order: same spot, food and meals every night; the price follows yesterday's sales."""
+    last = state.get("last_day") or {}
+    mine = last.get("you") or {}
+    camped = (mine.get("spot") == SPOT and mine.get("quality") == QUALITY and mine.get("meals")
+              and last.get("day") == state.get("day"))
+    if not camped:
+        price = START_PRICE                  # first night here (or a new market): the usual price
+    elif mine.get("sold", 0) >= mine["meals"]:
+        price = mine["price"] + STEP         # sold out: they would have paid more
+    elif mine.get("sold", 0) < SLOW * mine["meals"]:
+        price = mine["price"] - STEP         # slow day: too dear
+    else:
+        price = mine["price"]                # in between: hold
+    price = min(CAP, max(FLOOR, round(price / STEP) * STEP))
+    return {"spot": SPOT, "price": price, "quality": QUALITY, "meals": meals(state)}
+
+
+def meals(state):
+    """All the meals the budget buys, capped at MEALS."""
+    rules = state.get("rules") or {}
+    try:
+        return min(MEALS, int(rules["budget"] / rules["costs"][QUALITY] + 1e-9))
+    except (KeyError, TypeError, ZeroDivisionError):
+        return MEALS
+
+
+def call(method, path, body=None, timeout=35):
+    data = json.dumps(body).encode() if body is not None else None
+    req = urllib.request.Request(URL + path, data=data, method=method, headers={
+        "Authorization": "Bearer " + KEY, "Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            return r.status, json.load(r)
+    except urllib.error.HTTPError as e:
+        try:
+            return e.code, json.load(e)
+        except Exception:
+            return e.code, {"error": str(e)}
+
+
+def day_key(state):
+    return state.get("mode"), state.get("market"), (state.get("last_day") or {}).get("day")
+
+
+def log(name, state):
+    os.makedirs(LOG_DIR, exist_ok=True)
+    with open(os.path.join(LOG_DIR, name), "a") as f:
+        f.write(json.dumps(state) + "\n")
+
+
+def last_logged(name):
+    """The day of the last state in the log, so a restart doesn't log it twice."""
+    try:
+        with open(os.path.join(LOG_DIR, name), "rb") as f:
+            f.seek(0, 2)
+            f.seek(max(0, f.tell() - 65536))
+            return day_key(json.loads(f.read().splitlines()[-1]))
+    except Exception:
+        return None
+
+
+def play(base, logname):
+    """Long-poll the state and send one order per night. Works for live, final and practice."""
+    version, ordered, reported, rejected = 0, None, None, {}
+    logged, connected = last_logged(logname), False
+    while True:
+        try:
+            status, state = call("GET", base + "/state?since=%d" % version)
+            if status != 200:
+                if status != 429:
+                    print("error %d: %s" % (status, state.get("error")))
+                if status == 404 and base != LIVE:
+                    return None              # practice market expired
+                time.sleep(1)
+                continue
+            if not connected:
+                connected = True
+                print("[%s] connected: day %s, %s, cash $%.2f" % (
+                    state.get("mode"), state.get("day"), state.get("phase"), state["you"]["cash"]))
+            version = state["version"]
+            if state.get("last_day") and day_key(state) != logged:
+                logged = day_key(state)
+                log(logname, state)
+            if state["phase"] == "over" and state["mode"] == "practice":
+                report(state)
+                return state
+            key = (state.get("mode"), state.get("market"), state.get("order_for_day"))
+            if state["phase"] == "night" and state.get("orders_open") and key != ordered and rejected.get(key, 0) < 3:
+                if key != reported:
+                    reported = key
+                    report(state)
+                t0 = time.time()
+                order = decide(state)
+                status, res = call("POST", base + "/orders", order, timeout=3)
+                if status == 200:
+                    ordered = key
+                    print("  ordered for day %s in %.2fs: %s" % (res.get("for_day"), time.time() - t0, order))
+                    if "state" in res:       # practice plays the day right away
+                        version = 0
+                else:
+                    print("  order rejected (%d): %s" % (status, res.get("error")))
+                    if 400 <= status < 500 and status != 429:
+                        rejected[key] = rejected.get(key, 0) + 1   # a real "no": don't keep asking
+                    version = 0              # look again now and retry
+                    time.sleep(1 if status == 429 else 0.25)
+        except Exception as e:
+            print("loop error (%s: %s), retrying in 1s" % (type(e).__name__, e))
+            version = 0
+            time.sleep(1)
+
+
+def report(state):
+    last = state.get("last_day") or {}
+    mine = last.get("you") or {}
+    where = state["mode"] + (" market %s" % state["market"] if state["mode"] == "final" else "")
+    if mine.get("spot"):
+        print("[%s] day %s: %s at %s $%s, sold %s/%s, profit $%.2f, cash $%.2f" % (
+            where, last.get("day"), mine.get("quality"), mine.get("spot"), mine.get("price"),
+            mine.get("sold"), mine.get("meals"), mine.get("profit", 0), state["you"]["cash"]))
+    elif last.get("day"):
+        print("[%s] day %s: sat out, cash $%.2f" % (where, last.get("day"), state["you"]["cash"]))
+    else:
+        print("[%s] night before day %s, cash $%.2f" % (where, state.get("order_for_day"), state["you"]["cash"]))
+
+
+def main():
+    sys.stdout.reconfigure(line_buffering=True)
+    ap = argparse.ArgumentParser(description="Frontrun Fries v3")
+    ap.add_argument("--practice", action="store_true", help="play a private practice market")
+    ap.add_argument("--seed", help="practice seed, for repeatable markets")
+    ap.add_argument("--days", type=int, default=30, help="practice market length")
+    ap.add_argument("--rivals", type=int, default=3, help="practice house bots")
+    args = ap.parse_args()
+    if not KEY:
+        sys.exit("Set NIGHTSHIFT_KEY (or put it in .env).")
+    if args.practice:
+        body = {"days": args.days, "rivals": args.rivals}
+        if args.seed:
+            body["seed"] = args.seed
+        status, res = call("POST", LIVE + "/practice", body)
+        if status not in (200, 201):
+            sys.exit("could not start practice (%d): %s" % (status, res.get("error")))
+        print("practice market %s started" % res["id"])
+        final = play(res["base"], "practice-%s.jsonl" % res["id"])
+        if final:
+            print("practice over: cash $%.2f" % final["you"]["cash"])
+            for t in sorted(final["trucks"], key=lambda t: -t["cash"]):
+                print("  %-24s $%10.2f" % (t["truck_name"], t["cash"]))
+    else:
+        print("playing the live game at %s (Ctrl+C to stop)" % URL)
+        play(LIVE, "live.jsonl")
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\nbye")

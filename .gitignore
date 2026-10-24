@@ -1,4 +1,7 @@
 .env
 __pycache__/
-data/
 *.pyc
+logs/
+control.json
+runs/
+rivals_live/

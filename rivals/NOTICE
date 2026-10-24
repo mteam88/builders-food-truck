@@ -1,0 +1,19 @@
+# Rival bots vendored verbatim from their public GitHub repos, run only locally under
+# ftw/shim.py to predict their orders. snapshot	source	commit	licence	fetched
+Akshit-Jalli__foodtruck	https://github.com/Akshit-Jalli/foodtruck	1ba32c79348aeb604e9846941e491e0ae3ffe1e6	MIT (LICENSE in snapshot, Copyright (c) 2026 Akshit Jalli)	2026-10-24 03:40 EDT
+jtanSE__wagyuexpress	https://github.com/jtanSE/wagyuexpress	723016a1d92899a4cd91c2d4d41f6527588bb94b	no licence file	2026-10-24 03:40 EDT
+nicholasravakhah__5guysburgers	https://github.com/nicholasravakhah/5guysburgers	02184de766ed0541374dd78bd9583e559c970c7d	no licence file	2026-10-24 03:40 EDT
+Peezy0__nightshift-food-truck	https://github.com/Peezy0/nightshift-food-truck	add709a19507ce66953ff45a812a75505031d958	no licence file	2026-10-24 03:40 EDT
+siyanshvir__TruckHomeEatsBot	https://github.com/siyanshvir/TruckHomeEatsBot	571815134c1d19322ba65cdfc4250233085a8790	no licence file (repo deleted or made private 2026-10-24 ~01:07 ET; copied from our local clone of the last public commit)	2026-10-24 04:45 EDT
+jtanSE__wagyuexpress	https://github.com/jtanSE/wagyuexpress	5e23c671cfb81fa047ac729a677fda440dcf8dd8	no licence file	2026-10-24 05:05 EDT
+nicholasravakhah__5guysburgers	https://github.com/nicholasravakhah/5guysburgers	c7704aeb7f229f03205bf7937cc725c36d79ed29	no licence file	2026-10-24 05:05 EDT
+nicholasravakhah__5guysburgers	https://github.com/nicholasravakhah/5guysburgers	c46a2d0f4c0b4339fe2c6aa336fc7aa60ea5b638	no licence file	2026-10-24 07:15 EDT
+siyanshvir__TruckHomeEatsBot	https://github.com/siyanshvir/TruckHomeEatsBot	d3b4b8d0ec4aa587fc779be393c78acc015eb798	no licence file	2026-10-24 07:15 EDT
+siyanshvir__TruckHomeEatsBot	https://github.com/siyanshvir/TruckHomeEatsBot	a741b303ddc82ead6ce2270a420c4712dc86200b	no licence file	2026-10-24 07:23 EDT
+nicholasravakhah__5guysburgers	https://github.com/nicholasravakhah/5guysburgers	8a738a0d89761a56e771800e1ac603688dcccb54	no licence file	2026-10-24 07:36 EDT
+jtanSE__wagyuexpress	https://github.com/jtanSE/wagyuexpress	478ec63715379b23261133652be1d78ffbefec74	no licence file	2026-10-24 07:41 EDT
+siyanshvir__TruckHomeEatsBot	https://github.com/siyanshvir/TruckHomeEatsBot	f13abd62ff8cfba677c2e6c82c4e8c04a3df4715	no licence file	2026-10-24 07:41 EDT
+siyanshvir__TruckHomeEatsBot	https://github.com/siyanshvir/TruckHomeEatsBot	f2ca886339db49cdd433296ecf21708eb7b3fe60	no licence file	2026-10-24 07:47 EDT
+siyanshvir__TruckHomeEatsBot	https://github.com/siyanshvir/TruckHomeEatsBot	00d4fe92e4fdbde26d06a19860b0d615cbcc7f55	no licence file	2026-10-24 07:57 EDT
+nicholasravakhah__5guysburgers	https://github.com/nicholasravakhah/5guysburgers	b83584302f600a6f198e49c574516c3d4e5c876a	no licence file	2026-10-24 08:01 EDT
+siyanshvir__TruckHomeEatsBot	https://github.com/siyanshvir/TruckHomeEatsBot	3fd6f1940ce4bfe1bfc564b10c588bd1ae96dae8	no licence file	2026-10-24 08:01 EDT

@@ -57,8 +57,19 @@ def decide(state):
         price = mine["price"] - STEP         # slow day: too dear
     else:
         price = mine["price"]                # in between: hold
-    price = min(CAP, max(FLOOR, round(price / STEP) * STEP))
-    return {"spot": SPOT, "price": price, "quality": QUALITY, "meals": meals(state)}
+    cents = round(min(CAP, max(FLOOR, round(price / STEP) * STEP)) * 100)
+    taken = rival_cents(state)
+    while cents in taken:
+        cents -= 1                           # never sit exactly on a rival's price: a cent under
+    return {"spot": SPOT, "price": cents / 100, "quality": QUALITY, "meals": meals(state)}
+
+
+def rival_cents(state):
+    """Every price a rival charged yesterday, in cents."""
+    me = (state.get("you") or {}).get("id")
+    spots = ((state.get("last_day") or {}).get("spots") or {}).values()
+    return {round(t["price"] * 100) for s in spots for t in s.get("trucks") or []
+            if t.get("id") != me and t.get("price") is not None}
 
 
 def meals(state):
